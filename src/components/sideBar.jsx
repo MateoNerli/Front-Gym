@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { Menu } from "../hooks/sideBar";
 
-const App = () => {
+export const SideBar = () => {
   const [open, setOpen] = useState(true);
 
   return (
@@ -52,4 +52,3 @@ const App = () => {
     </div>
   );
 };
-export default App;
