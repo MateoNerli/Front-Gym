@@ -53,7 +53,7 @@ export const SideBar = () => {
               <div className="flex items-center gap-x-4">
                 <FontAwesomeIcon
                   icon={item.icon}
-                  className="w-5 h-5 transition duration-75 text-gray-400 hover:text-black"
+                  className="w-5 h-5 transition duration-300 text-gray-400 hover:text-black "
                 />
                 <span className={`${!open && "opacity-0"}`}>{item.title}</span>
                 {item.submenu && open && (
