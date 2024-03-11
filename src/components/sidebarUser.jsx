@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 
-export const SideBarUser = () => {
+export const SideBarUser = ({ open }) => {
   return (
-    <div className="border-t flex p-5 pt-8">
+    <div className="border-t flex pt-5  ">
       <img
         src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
         alt=""

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { SideBarMenu } from "../utils/sideBar";
 
-export const SideBarItems = () => {
+export const SideBarItems = ({ open }) => {
   const [activeMenuItem, setActiveMenuItem] = useState(null);
 
   const toggleSubMenu = (menuItem) => {
@@ -37,11 +37,11 @@ export const SideBarItems = () => {
               )}
             </div>
             {open && item.submenu && activeMenuItem === item && (
-              <ul className="pl-6 mt-2">
+              <ul className="pl-6 mt-2" style={{ listStyleType: "disc" }}>
                 {item.submenu.map((subItem, subIndex) => (
                   <li
                     key={subIndex}
-                    className="p-2 hover:bg-slate-400 hover:underline hover:text-black cursor-pointer rounded-md transition duration-100"
+                    className="p-2 hover:bg-slate-400 hover:underline hover:text-black cursor-pointer rounded-md "
                   >
                     {subItem.title}
                   </li>
