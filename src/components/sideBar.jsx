@@ -34,7 +34,7 @@ export const SideBar = () => {
             />
           </div>
           <div className="overflow-y-auto overflow-x-hidden flex-grow custom-scrollbar">
-            <SideBarItems open={open} />
+            <SideBarItems open={open} setOpen={setOpen} />
           </div>
           <SideBarUser open={open} />
         </div>

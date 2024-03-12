@@ -8,11 +8,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export const SideBarMenu = [
-  { title: "Informacion", icon: faGlobe, link: "/" },
+  { title: "Informacion", icon: faGlobe, link: "/home" },
   {
     title: "Usuarios",
     icon: faUser,
-    link: "/users",
     submenu: [
       { title: "Ver socios", link: "/socios/list" },
       { title: "Ver entrenadores", link: "/entrenadores/list" },
@@ -23,7 +22,6 @@ export const SideBarMenu = [
   {
     title: "Productos",
     icon: faBoxesStacked,
-    link: "/products",
     submenu: [
       { title: "Ver productos", link: "/products/list" },
       { title: "Crear productos", link: "/products/create" },
@@ -32,7 +30,6 @@ export const SideBarMenu = [
   {
     title: "Planes",
     icon: faScroll,
-    link: "/planes",
     submenu: [
       { title: "Ver planes", link: "/planes/list" },
       { title: "Crear planes", link: "/planes/create" },
@@ -41,7 +38,6 @@ export const SideBarMenu = [
   {
     title: "Rutinas",
     icon: faDumbbell,
-    link: "/rutinas",
     submenu: [
       { title: "Ver rutinas", link: "/rutinas/list" },
       { title: "Crear rutinas", link: "/rutinas/create" },
@@ -50,7 +46,6 @@ export const SideBarMenu = [
   {
     title: "Pagos",
     icon: faMoneyBill,
-    link: "/pagos",
     submenu: [
       { title: "Ver pagos", link: "/pagos/list" },
       { title: "Agregar pagos", link: "/pagos/create" },

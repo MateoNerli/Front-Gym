@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SideBar } from "./components/sideBar";
+import { HomePage } from "./components/pages/homePage";
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
           <SideBar />
           <div className="flex-grow">
             <Routes>
-              <Route path="/" element={<h1>Home</h1>} />
+              <Route path="/home" element={<HomePage />} />
               <Route path="/about" element={<h1>About</h1>} />
               <Route path="/services" element={<h1>Services</h1>} />
               <Route path="/contact" element={<h1>Contact</h1>} />
