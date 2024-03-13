@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { SideBarMenu } from "../utils/sideBar";
+import { SideBarMenu } from "../../utils/sideBar";
 
 export const SideBarItems = ({ open, setOpen }) => {
   const [activeMenuItem, setActiveMenuItem] = useState(null);
@@ -37,27 +36,7 @@ export const SideBarItems = ({ open, setOpen }) => {
                 className="w-5 h-5 transition duration-300 text-gray-400 hover:text-black "
               />
               <span className={`${!open && "opacity-0"}`}>{item.title}</span>
-              {item.submenu && open && (
-                <FontAwesomeIcon
-                  icon={faAngleDown}
-                  className="ml-auto w-4 h-4 cursor-pointer"
-                />
-              )}
             </Link>
-            {open && item.submenu && activeMenuItem === item && (
-              <ul className="pl-6 mt-2" style={{ listStyleType: "disc" }}>
-                {item.submenu.map((subItem, subIndex) => (
-                  <Link to={subItem.link} key={subIndex}>
-                    <li
-                      key={subIndex}
-                      className="p-2 hover:bg-slate-400 hover:underline hover:text-black cursor-pointer rounded-md "
-                    >
-                      {subItem.title}
-                    </li>
-                  </Link>
-                ))}
-              </ul>
-            )}
           </li>
         ))}
       </ul>
