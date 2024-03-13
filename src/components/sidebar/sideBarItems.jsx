@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SideBarMenu } from "../../utils/sideBar";
+import { SideBarMenu } from "../../utils/itemMenu";
 
 export const SideBarItems = ({ open, setOpen }) => {
   const [activeMenuItem, setActiveMenuItem] = useState(null);

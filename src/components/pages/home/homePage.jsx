@@ -3,9 +3,11 @@ import { Cards } from "./cards";
 export const HomePage = () => {
   return (
     <div className="bg-[#d4d4cd]">
-      <div className="px-4 py-8 ml-20 md:ml-0">
+      <div className="p-4 pt-10">
         <Cards />
         <Cards />
+        <Cards />
+
         <Cards />
       </div>
     </div>

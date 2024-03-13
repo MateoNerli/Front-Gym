@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { SideBarUser } from "./sidebarUser";
@@ -9,23 +9,13 @@ import "../../styles/scrollbar.css";
 export const SideBar = () => {
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 640) {
-        setOpen(true);
-      } else {
-        setOpen(false);
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const toggleSidebar = () => {
+    setOpen(!open);
+  };
 
   return (
-    <aside className="h-full fixed z-40 border-gray-300 md:static md:z-auto">
-      <div className="flex flex-col h-full bg-slate-800 border-r shadow-sm ">
+    <aside className="md:h-screen md:fixed md:z-40 md:border-gray-300">
+      <div className="hidden sm:block md:flex flex-col h-full bg-slate-800 border-r shadow-sm">
         <div
           className={`${
             open ? "w-72" : "w-20"
@@ -36,7 +26,7 @@ export const SideBar = () => {
             className={`bg-white text-inevitable-blue text-3xl rounded-full absolute -right-3 top-9 border border-inevitable-blue cursor-pointer ${
               !open && "rotate-180"
             }`}
-            onClick={() => setOpen(!open)}
+            onClick={toggleSidebar}
           />
           <div className="flex gap-x-4 items-center justify-center">
             <img
