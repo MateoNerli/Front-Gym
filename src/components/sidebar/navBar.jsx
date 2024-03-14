@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { SideBarMenu } from "../../utils/itemMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { SideBarUser } from "./sidebarUser";
 
 export const NavBar = () => {
   const [state, setState] = useState(false);
@@ -54,26 +55,10 @@ export const NavBar = () => {
                 </li>
               );
             })}
-            <span className="hidden w-px h-6 bg-gray-300 md:block"></span>
-            <div className="space-y-3 items-center gap-x-6 md:flex md:space-y-0">
-              <li>
-                <a
-                  href=""
-                  className="block py-3 text-center bg-slate-200 text-gray-700 hover:text-white hover:bg-black border rounded-lg md:border-none"
-                >
-                  Log in
-                </a>
-              </li>
-              <li>
-                <a
-                  href=""
-                  className="block py-3 px-4 font-medium text-center text-white bg-black hover:bg-slate-200  hover:text-black active:shadow-none rounded-lg shadow md:inline"
-                >
-                  Sign in
-                </a>
-              </li>
-            </div>
           </ul>
+          <div className="flex items-center border-t-2 justify-center">
+            <SideBarUser />
+          </div>
         </div>
       </div>
     </nav>

@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 
-export const SideBarUser = ({ open }) => {
+export const SideBarUser = () => {
   return (
-    <div className="border-t flex pt-5  ">
+    <div className=" flex pt-5  ">
       <img
         src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
         alt=""
@@ -12,14 +12,17 @@ export const SideBarUser = ({ open }) => {
       <div
         className={`
       flex justify-between items-center
-        overflow-hidden transition-all ${open ? "w-52 ml-3" : "w-0"}
+        overflow-hidden transition-all duration-300 
     `}
       >
-        <div className="leading-4">
+        <div className="leading-4 ml-2">
           <h4 className="font-semibold text-slate-300">Nombre apellido</h4>
           <span className="text-xs text-gray-400">nombre@gmail.com</span>
         </div>
-        <FontAwesomeIcon icon={faEllipsisVertical} className="text-gray-200" />
+        <FontAwesomeIcon
+          icon={faEllipsisVertical}
+          className="text-gray-200 ml-10"
+        />
       </div>
     </div>
   );

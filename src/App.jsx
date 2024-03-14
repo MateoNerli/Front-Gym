@@ -9,7 +9,7 @@ function App() {
     <>
       <BrowserRouter>
         <NavBar />
-        <div className="flex">
+        <div className="felx">
           <SideBar />
           <div className="flex-grow">
             <Routes>

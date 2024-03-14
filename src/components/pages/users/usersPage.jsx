@@ -3,7 +3,7 @@ import { ListUsers } from "./listUsers";
 export const UsersPage = () => {
   return (
     <div className="bg-white">
-      <div className="px-4 py-4 ml-20 md:ml-0">
+      <div className="p-4 sm:ml-72">
         <ListUsers />
       </div>
     </div>
