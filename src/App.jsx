@@ -3,6 +3,7 @@ import { HomePage } from "./components/pages/home/homePage";
 import { SideBar } from "./components/sidebar/sideBar";
 import { UsersPage } from "./components/pages/users/usersPage";
 import { NavBar } from "./components/sidebar/navBar";
+import { UserCreate } from "./components/pages/users/userCreate";
 
 function App() {
   return (
@@ -15,8 +16,7 @@ function App() {
             <Routes>
               <Route path="/home" element={<HomePage />} />
               <Route path="/users" element={<UsersPage />} />
-              <Route path="/services" element={<h1>Services</h1>} />
-              <Route path="/contact" element={<h1>Contact</h1>} />
+              <Route path="/users/create" element={<UserCreate />} />
             </Routes>
           </div>
         </div>
