@@ -57,7 +57,9 @@ export const TableUser = () => {
                   {item.persona.estado === 1 ? "Active" : "Inactive"}
                 </span>
               </td>
-              <Acctions dni={item.persona.dni} />
+              <td>
+                <Acctions dni={item.persona.dni} />
+              </td>
             </tr>
           ))}
         </tbody>

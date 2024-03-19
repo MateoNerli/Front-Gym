@@ -27,7 +27,7 @@ export const UserEdit = () => {
     }
   };
 
-  console.log(data);
+  // console.log(data);
   return (
     <div className="p-4 sm:ml-72">
       <h2 className="text-2xl font-bold text-center">
@@ -140,81 +140,79 @@ export const UserEdit = () => {
         <h2 className="text-2xl font-bold text-center">
           <span className="border-b-2 border-slate-600">Ficha medica</span>
         </h2>
-        <div className="mt-4 grid gap-6 mb-6 md:grid-cols-2">
-          {data.FichaMedica.map((ficha, index) => (
-            <div key={index}>
-              <TextInput
-                id={`peso_${index}`}
-                label="Peso"
-                placeholder="Peso"
-                value={ficha.peso}
-                type="number"
-                required
-              />
-              <TextInput
-                id={`altura_${index}`}
-                label="Altura"
-                placeholder="Altura"
-                value={ficha.altura}
-                type="number"
-                required
-              />
-              <TextInput
-                id={`med_cintura_${index}`}
-                label="Medida de cintura"
-                placeholder="Medida de cintura"
-                value={ficha.med_cintura}
-                type="number"
-                required
-              />
-              <TextInput
-                id={`med_cadera_${index}`}
-                label="Medida de cadera"
-                placeholder="Medida de cadera"
-                value={ficha.med_cadera}
-                type="number"
-                required
-              />
-              <TextInput
-                id={`porcentaje_grasa_${index}`}
-                label="Porcentaje de grasa"
-                placeholder="Porcentaje de grasa"
-                value={ficha.porc_grasa_corporal}
-                type="number"
-                required
-              />
-              <TextInput
-                id={`objetivo_${index}`}
-                label="Objetivo"
-                placeholder="Objetivo"
-                value={ficha.objetivo}
-                type="text"
-                required
-              />
-              <TextInput
-                id={`opreaciones${index}`}
-                label="Opreaciones"
-                placeholder="opreaciones"
-                value={ficha.opreaciones}
-                type="text"
-                required
-              />
-              <TextInput
-                id={`enfermedades_${index}`}
-                label="Enfermedades"
-                placeholder="Enfermedades"
-                value={ficha.enfermedades}
-                type="text"
-                required
-              />
-            </div>
-          ))}
-        </div>
+        {data.FichaMedica.map((ficha, index) => (
+          <div key={index} className="mt-4 grid gap-6 md:grid-cols-2">
+            <TextInput
+              id={`peso_${index}`}
+              label="Peso"
+              placeholder="Peso"
+              value={ficha.peso}
+              type="number"
+              required
+            />
+            <TextInput
+              id={`altura_${index}`}
+              label="Altura"
+              placeholder="Altura"
+              value={ficha.altura}
+              type="number"
+              required
+            />
+            <TextInput
+              id={`med_cintura_${index}`}
+              label="Medida de cintura"
+              placeholder="Medida de cintura"
+              value={ficha.med_cintura}
+              type="number"
+              required
+            />
+            <TextInput
+              id={`med_cadera_${index}`}
+              label="Medida de cadera"
+              placeholder="Medida de cadera"
+              value={ficha.med_cadera}
+              type="number"
+              required
+            />
+            <TextInput
+              id={`porcentaje_grasa_${index}`}
+              label="Porcentaje de grasa"
+              placeholder="Porcentaje de grasa"
+              value={ficha.porc_grasa_corporal}
+              type="number"
+              required
+            />
+            <TextInput
+              id={`objetivo_${index}`}
+              label="Objetivo"
+              placeholder="Objetivo"
+              value={ficha.objetivo}
+              type="text"
+              required
+            />
+            <TextInput
+              id={`opreaciones${index}`}
+              label="Opreaciones"
+              placeholder="opreaciones"
+              value={ficha.opreaciones}
+              type="text"
+              required
+            />
+            <TextInput
+              id={`enfermedades_${index}`}
+              label="Enfermedades"
+              placeholder="Enfermedades"
+              value={ficha.enfermedades}
+              type="text"
+              required
+            />
+          </div>
+        ))}
 
         <div className="grid gap-6 mb-6">
           <button
             type="submit"
-            className="mt-2 text-white bg-slate-800 hover:bg-slate-600 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            className="mt-4 text-white bg-slate-800 hover:bg-slate-600 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
             Agregar
           </button>
