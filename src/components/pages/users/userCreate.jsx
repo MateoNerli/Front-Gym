@@ -1,8 +1,40 @@
-import { CheckboxUser } from "./checkBox";
-import { ComboUser } from "./comboUser";
-import { TextInput } from "./textInput";
+import { useEffect, useState } from "react";
+import { Combo } from "../utils/combo";
+import { useFetch } from "../../../hooks/useFetch";
+import { Checkbox } from "../utils/checkBox";
+import { TextInput } from "../utils/textInput";
 
 export const UserCreate = () => {
+  const { data: planData, loading: planLoading } = useFetch(
+    "http://localhost:3000/plans/list"
+  );
+  const { data: promoData, loading: promoLoading } = useFetch(
+    "http://localhost:3000/promotions/list"
+  );
+
+  const [planOptions, setPlanOptions] = useState([]);
+  const [promoOptions, setPromoOptions] = useState([]);
+
+  useEffect(() => {
+    if (!planLoading && planData) {
+      const options = planData.data.map((plan) => ({
+        value: plan.codigo,
+        label: plan.nombre,
+      }));
+      setPlanOptions(options);
+    }
+  }, [planData, planLoading]);
+
+  useEffect(() => {
+    if (!promoLoading && promoData) {
+      const options = promoData.data.map((promo) => ({
+        value: promo.codigo,
+        label: promo.nombre,
+      }));
+      setPromoOptions(options);
+    }
+  }, [promoData, promoLoading]);
+
   return (
     <div className="p-4 sm:ml-72">
       <h2 className="text-2xl font-bold text-center">
@@ -53,12 +85,16 @@ export const UserCreate = () => {
             required
           />
 
-          <ComboUser
-            id="sexo"
-            label="Sexo"
-            options={["Seleccione sexo", "Masculino", "Femenino"]}
+          <Combo
+            id="genero"
+            label="Género"
+            options={[
+              { value: "M", label: "Masculino" },
+              { value: "F", label: "Femenino" },
+            ]}
+            required
           />
-          <CheckboxUser id="estado" label="Estado" required />
+          <Checkbox id="estado" label="Estado" required />
         </div>
 
         <h2 className="text-2xl font-bold text-center">
@@ -82,20 +118,8 @@ export const UserCreate = () => {
             type="tel"
             required
           />
-          <TextInput
-            id="codigo_plan"
-            label="Código de plan"
-            placeholder="Código de plan"
-            type="text"
-            required
-          />
-          <TextInput
-            id="codigo_promocion"
-            label="Código de promoción"
-            placeholder="Código de promoción"
-            type="text"
-            required
-          />
+          <Combo id="codigo_plan" label="Plan" options={planOptions} />
+          <Combo id="codigo_promo" label="Promoción" options={promoOptions} />
         </div>
         <h2 className="text-2xl font-bold text-center">
           <span className="border-b-2 border-slate-600">Ficha medica</span>

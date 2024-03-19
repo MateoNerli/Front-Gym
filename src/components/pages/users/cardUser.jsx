@@ -33,7 +33,7 @@ export const CardUser = ({ tableItems }) => {
               </div>
             </div>
 
-            <div className="flex justify-between mt-2 pb-2 px-2">
+            <div className="flex justify-center mt-2 pb-2 px-2">
               <Acctions dni={item.persona.dni} />
             </div>
           </div>

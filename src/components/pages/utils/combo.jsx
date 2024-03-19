@@ -1,4 +1,4 @@
-export const ComboUser = ({ id, label, required, options, defaultValue }) => {
+export const Combo = ({ id, label, required, options, defaultValue }) => {
   return (
     <div className="">
       <label
@@ -11,11 +11,11 @@ export const ComboUser = ({ id, label, required, options, defaultValue }) => {
         id={id}
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         required={required}
-        defaultValue={defaultValue} // Usa defaultValue en lugar de value
+        defaultValue={defaultValue}
       >
         {options.map((option, index) => (
-          <option key={index} value={option}>
-            {option}
+          <option key={index} value={option.value}>
+            {option.label}
           </option>
         ))}
       </select>

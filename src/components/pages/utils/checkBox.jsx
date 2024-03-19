@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const CheckboxUser = ({
-  id,
-  label,
-  required,
-  initialValue,
-  onChange,
-}) => {
+export const Checkbox = ({ id, label, required, initialValue, onChange }) => {
   const [checked, setChecked] = useState(initialValue);
 
   useEffect(() => {

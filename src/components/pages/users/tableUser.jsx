@@ -57,7 +57,7 @@ export const TableUser = () => {
                   {item.persona.estado === 1 ? "Active" : "Inactive"}
                 </span>
               </td>
-              <td>
+              <td className="px-6 py-4 whitespace-nowrap text-center">
                 <Acctions dni={item.persona.dni} />
               </td>
             </tr>

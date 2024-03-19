@@ -1,7 +1,7 @@
 import { useFetch } from "../../../hooks/useFetch";
-import { CheckboxUser } from "./checkBox";
-import { ComboUser } from "./comboUser";
-import { TextInput } from "./textInput";
+import { Combo } from "../utils/combo";
+import { Checkbox } from "../utils/checkBox";
+import { TextInput } from "../utils/textInput";
 import { useParams } from "react-router-dom";
 
 export const UserEdit = () => {
@@ -9,9 +9,14 @@ export const UserEdit = () => {
   const { data, loading, error } = useFetch(
     `http://localhost:3000/users/clientes/${dni}`
   );
-  if (loading) {
+  const { data: planData, loading: planLoading } = useFetch(
+    "http://localhost:3000/plans/list"
+  );
+
+  if (loading || planLoading) {
     return <div>Cargando...</div>;
   }
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -26,7 +31,6 @@ export const UserEdit = () => {
         return "";
     }
   };
-
   // console.log(data);
   return (
     <div className="p-4 sm:ml-72">
@@ -84,14 +88,18 @@ export const UserEdit = () => {
             required
           />
 
-          <ComboUser
+          <Combo
+            id="sexo"
             label="Sexo"
-            defaultValue={convertSexo(data.persona.sexo)}
-            options={["Seleccionar usuario", "Masculino", "Femenino"]}
             required
+            options={[
+              { value: "M", label: "Masculino" },
+              { value: "F", label: "Femenino" },
+            ]}
+            defaultValue={convertSexo(data.persona.sexo)}
           />
 
-          <CheckboxUser
+          <Checkbox
             id="estado"
             label="Estado"
             required
@@ -129,12 +137,15 @@ export const UserEdit = () => {
             type="text"
             required
           />
-          <TextInput
-            id="codigo_promocion"
-            label="Código de promoción"
-            placeholder="Código de promoción"
-            type="text"
+          <Combo
+            id="codigo_plan"
+            label="Código de plan"
             required
+            options={planData.map((plan) => ({
+              value: plan.codigo,
+              label: plan.nombre,
+            }))}
+            defaultValue={data.plan.codigo_plan}
           />
         </div>
         <h2 className="text-2xl font-bold text-center">

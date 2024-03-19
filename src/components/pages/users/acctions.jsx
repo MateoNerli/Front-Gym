@@ -12,7 +12,7 @@ export const Acctions = ({ dni }) => {
   };
 
   return (
-    <td className="text-right px-6 whitespace-nowrap">
+    <>
       <div className="flex justify-center">
         <button
           className="bg-yellow-200 flex items-center p-2 text-gray-800 rounded-lg mr-2"
@@ -36,6 +36,6 @@ export const Acctions = ({ dni }) => {
         onClose={() => setIsOpen(false)}
         userDni={dni}
       />
-    </td>
+    </>
   );
 };
