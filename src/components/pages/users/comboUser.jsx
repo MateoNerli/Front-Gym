@@ -1,11 +1,4 @@
-export const TextInput = ({
-  id,
-  label,
-  placeholder,
-  type,
-  required,
-  value,
-}) => {
+export const ComboUser = ({ id, label, required, options, defaultValue }) => {
   return (
     <div className="">
       <label
@@ -14,14 +7,18 @@ export const TextInput = ({
       >
         {label}
       </label>
-      <input
-        type={type}
+      <select
         id={id}
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-        placeholder={placeholder}
-        defaultValue={value}
         required={required}
-      />
+        defaultValue={defaultValue} // Usa defaultValue en lugar de value
+      >
+        {options.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };

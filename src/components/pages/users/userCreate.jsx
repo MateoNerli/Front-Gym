@@ -1,82 +1,173 @@
+import { CheckboxUser } from "./checkBox";
+import { ComboUser } from "./comboUser";
 import { TextInput } from "./textInput";
 
 export const UserCreate = () => {
   return (
     <div className="p-4 sm:ml-72">
-      <h1>UserCreate</h1>
+      <h2 className="text-2xl font-bold text-center">
+        <span className="border-b-2 border-slate-600">Agregar cliente</span>
+      </h2>
       <form>
-        <div className="grid gap-6 mb-6 md:grid-cols-2">
+        <div className="mt-4 grid gap-6 mb-6 md:grid-cols-2">
           <TextInput
-            id="first_name"
+            id="nombre"
             label="Nombre"
             placeholder="John"
             type="text"
             required
           />
           <TextInput
-            id="last_name"
-            label="Apellido "
+            id="apellido"
+            label="Apellido"
             placeholder="Doe"
             type="text"
             required
           />
           <TextInput
-            id="company"
-            label="Company"
-            placeholder="Flowbite"
+            id="direccion"
+            label="Dirección"
+            placeholder="Mitre 1234"
             type="text"
             required
           />
           <TextInput
-            id="phone"
-            label="Phone number"
-            placeholder="123-45-678"
+            id="telefono"
+            label="Teléfono"
+            placeholder="3364-445-678"
             type="tel"
-            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
             required
           />
           <TextInput
-            id="website"
-            label="Website URL"
-            placeholder="flowbite.com"
+            id="correo"
+            label="Correo"
+            placeholder="johnDoe@gmail.com"
             type="url"
             required
           />
           <TextInput
-            id="visitors"
-            label="Unique visitors (per month)"
-            placeholder=""
-            type="number"
+            id="fecha_nacimiento"
+            label="Fecha de nacimiento"
+            placeholder="1990-12-31"
+            type="date"
+            required
+          />
+
+          <ComboUser
+            id="sexo"
+            label="Sexo"
+            options={["Seleccione sexo", "Masculino", "Femenino"]}
+          />
+          <CheckboxUser id="estado" label="Estado" required />
+        </div>
+
+        <h2 className="text-2xl font-bold text-center">
+          <span className="border-b-2 border-slate-600">
+            Informacion del cliente
+          </span>
+        </h2>
+
+        <div className="mt-4 grid gap-6 mb-6 md:grid-cols-2">
+          <TextInput
+            id="ocupacion"
+            label="Ocupación"
+            placeholder="Ocupación"
+            type="text"
+            required
+          />
+          <TextInput
+            id="telefono_emergencia"
+            label="Teléfono de emergencia"
+            placeholder="Teléfono de emergencia"
+            type="tel"
+            required
+          />
+          <TextInput
+            id="codigo_plan"
+            label="Código de plan"
+            placeholder="Código de plan"
+            type="text"
+            required
+          />
+          <TextInput
+            id="codigo_promocion"
+            label="Código de promoción"
+            placeholder="Código de promoción"
+            type="text"
             required
           />
         </div>
-        <TextInput
-          id="email"
-          label="Email address"
-          placeholder="john.doe@company.com"
-          type="email"
-          required
-        />
-        <TextInput
-          id="password"
-          label="Password"
-          placeholder="•••••••••"
-          type="password"
-          required
-        />
-        <TextInput
-          id="confirm_password"
-          label="Confirm password"
-          placeholder="•••••••••"
-          type="password"
-          required
-        />
-        <button
-          type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-        >
-          Submit
-        </button>
+        <h2 className="text-2xl font-bold text-center">
+          <span className="border-b-2 border-slate-600">Ficha medica</span>
+        </h2>
+        <div className="mt-4 grid gap-6 mb-6 md:grid-cols-2">
+          <TextInput
+            id="peso"
+            label="Peso"
+            placeholder="Peso"
+            type="number"
+            required
+          />
+          <TextInput
+            id="altura"
+            label="Altura"
+            placeholder="Altura"
+            type="number"
+            required
+          />
+          <TextInput
+            id="med_cintura"
+            label="Medida de cintura"
+            placeholder="Medida de cintura"
+            type="number"
+            required
+          />
+          <TextInput
+            id="med_cadera"
+            label="Medida de cadera"
+            placeholder="Medida de cadera"
+            type="number"
+            required
+          />
+          <TextInput
+            id="porcentaje_grasa"
+            label="Porcentaje de grasa"
+            placeholder="Porcentaje de grasa"
+            type="number"
+            required
+          />
+          <TextInput
+            id="objetivo"
+            label="Objetivo"
+            placeholder="Objetivo"
+            type="text"
+            required
+          />
+
+          <TextInput
+            id="opreciones"
+            label="Operaciones"
+            placeholder="Operaciones"
+            type="text"
+            required
+          />
+          <TextInput
+            id="enfermedades"
+            label="Enfermedades"
+            placeholder="Enfermedades"
+            type="text"
+            required
+          />
+        </div>
+
+        <div className="grid gap-6 mb-6">
+          <button
+            type="submit"
+            className="mt-2 text-white bg-slate-800 hover:bg-slate-600 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          >
+            Agregar
+          </button>
+        </div>
       </form>
     </div>
   );
