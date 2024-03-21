@@ -15,8 +15,8 @@ export const UserCreate = () => {
   const [planOptions, setPlanOptions] = useState([]);
   const [selectedPromo, setSelectedPromo] = useState("");
   const [promoOptions, setPromoOptions] = useState([]);
-  const [selectedGender, setSelectedGender] = useState(""); // Estado para el género
-  const [selectedState, setSelectedState] = useState(0); // Estado para el estado
+  const [selectedGender, setSelectedGender] = useState("");
+  const [selectedState, setSelectedState] = useState(0);
 
   useEffect(() => {
     if (!planLoading && planData) {
@@ -39,24 +39,24 @@ export const UserCreate = () => {
   }, [promoData, promoLoading]);
 
   const handlePlanChange = (newPlan) => {
-    setSelectedPlan(newPlan); // Actualizar estado del plan seleccionado
-    handleInputChange("codigo_plan", newPlan); // Actualizar estado del formulario
+    setSelectedPlan(newPlan);
+    handleInputChange("codigo_plan", newPlan);
   };
 
   const handlePromoChange = (newPromo) => {
-    setSelectedPromo(newPromo); // Actualizar estado de la promoción seleccionada
-    handleInputChange("codigo_promo", newPromo); // Actualizar estado del formulario
+    setSelectedPromo(newPromo);
+    handleInputChange("codigo_promo", newPromo);
   };
 
   const handleGenderChange = (value) => {
-    setSelectedGender(value); // Actualizar el estado del género seleccionado
-    handleInputChange("sexo", value); // Actualizar el estado del formulario
+    setSelectedGender(value);
+    handleInputChange("sexo", value);
   };
 
   const handleStateChange = (isChecked) => {
-    const newState = isChecked ? 1 : 0; // Convertir isChecked a 1 o 0
-    setSelectedState(newState); // Actualizar estado del estado seleccionado
-    handleInputChange("estado", newState.toString()); // Actualizar estado del formulario como cadena
+    const newState = isChecked ? 1 : 0;
+    setSelectedState(newState);
+    handleInputChange("estado", newState.toString());
   };
 
   const [formData, setFormData] = useState({
@@ -181,7 +181,7 @@ export const UserCreate = () => {
             id="sexo"
             label="Género"
             options={[
-              { value: "", label: "Elegir género", disabled: true }, // Opción predeterminada
+              { value: "", label: "Elegir género", disabled: true },
               { value: "M", label: "Masculino" },
               { value: "F", label: "Femenino" },
             ]}
@@ -192,9 +192,8 @@ export const UserCreate = () => {
           <Checkbox
             id="estado"
             label="Estado"
-            required={true}
-            initialValue={false}
-            onChange={handleStateChange} // Pasar función de cambio de estado
+            initialValue={selectedState}
+            onChange={handleStateChange}
           />
         </div>
 
@@ -231,7 +230,7 @@ export const UserCreate = () => {
             id="codigo_plan"
             label="Plan"
             options={[
-              { value: "", label: "Elegir plan", disabled: true }, // Opción predeterminada
+              { value: "", label: "Elegir plan", disabled: true },
               ...planOptions,
             ]}
             value={selectedPlan}
@@ -241,7 +240,7 @@ export const UserCreate = () => {
             id="codigo_promo"
             label="Promoción"
             options={[
-              { value: "", label: "Elegir promoción", disabled: true }, // Opción predeterminada
+              { value: "", label: "Elegir promoción", disabled: true },
               ...promoOptions,
             ]}
             value={selectedPromo}
