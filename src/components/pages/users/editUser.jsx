@@ -1,8 +1,8 @@
-import { useFetch } from "../../../hooks/useFetch";
 import { Combo } from "../utils/combo";
 import { Checkbox } from "../utils/checkBox";
 import { TextInput } from "../utils/textInput";
 import { useParams } from "react-router-dom";
+import { useFetch } from "../../../hooks/useFetch";
 
 export const UserEdit = () => {
   const { dni } = useParams();
@@ -12,25 +12,23 @@ export const UserEdit = () => {
   const { data: planData, loading: planLoading } = useFetch(
     "http://localhost:3000/plans/list"
   );
+  const { data: promoData, loading: promoLoading } = useFetch(
+    "http://localhost:3000/promotions/list"
+  );
 
-  if (loading || planLoading) {
-    return <div>Cargando...</div>;
+  if (loading || planLoading || promoLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="flex-col gap-4 w-full flex items-center justify-center">
+          <div className="w-28 h-28 border-8 text-blue-400 text-4xl animate-spin border-gray-300 flex items-center justify-center border-t-blue-400 rounded-full"></div>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
     return <div>Error: {error}</div>;
   }
-
-  const convertSexo = (sexo) => {
-    switch (sexo) {
-      case "M":
-        return "Masculino";
-      case "F":
-        return "Femenino";
-      default:
-        return "";
-    }
-  };
   // console.log(data);
   return (
     <div className="p-4 sm:ml-72">
@@ -91,12 +89,13 @@ export const UserEdit = () => {
           <Combo
             id="sexo"
             label="Sexo"
-            required
             options={[
               { value: "M", label: "Masculino" },
               { value: "F", label: "Femenino" },
             ]}
-            defaultValue={convertSexo(data.persona.sexo)}
+            value={data.persona.sexo}
+            required
+            onChange={(value) => data.persona.sexo(value)}
           />
 
           <Checkbox
@@ -130,22 +129,26 @@ export const UserEdit = () => {
             type="tel"
             required
           />
-          <TextInput
-            id="codigo_plan"
-            label="Código de plan"
-            placeholder="Código de plan"
-            type="text"
-            required
-          />
           <Combo
-            id="codigo_plan"
-            label="Código de plan"
-            required
-            options={planData.map((plan) => ({
+            id="plan"
+            label="Plan"
+            options={planData.data.map((plan) => ({
               value: plan.codigo,
               label: plan.nombre,
             }))}
-            defaultValue={data.plan.codigo_plan}
+            value={data.codigo_plan}
+            required
+          />
+
+          <Combo
+            id="promocion"
+            label="Promoción"
+            options={promoData.data.map((promo) => ({
+              value: promo.codigo,
+              label: promo.nombre,
+            }))}
+            value={data.codigo_promocion}
+            required
           />
         </div>
         <h2 className="text-2xl font-bold text-center">
@@ -201,22 +204,28 @@ export const UserEdit = () => {
               type="text"
               required
             />
-            <TextInput
-              id={`opreaciones${index}`}
-              label="Opreaciones"
-              placeholder="opreaciones"
-              value={ficha.opreaciones}
-              type="text"
-              required
-            />
-            <TextInput
-              id={`enfermedades_${index}`}
-              label="Enfermedades"
-              placeholder="Enfermedades"
-              value={ficha.enfermedades}
-              type="text"
-              required
-            />
+            {ficha.OperacionesFicha.map((operacion, opIndex) => (
+              <TextInput
+                key={`operaciones_${index}_${opIndex}`}
+                id={`operaciones_${index}_${opIndex}`}
+                label="Operaciones"
+                placeholder="Operaciones"
+                value={operacion.operacion}
+                type="text"
+                required
+              />
+            ))}
+            {ficha.EnfermedadFicha.map((enfermedad, enIndex) => (
+              <TextInput
+                key={`enfermedades_${index}_${enIndex}`}
+                id={`enfermedades_${index}_${enIndex}`}
+                label="Enfermedades"
+                placeholder="Enfermedades"
+                value={enfermedad.enfermedad}
+                type="text"
+                required
+              />
+            ))}
           </div>
         ))}
 

@@ -5,14 +5,20 @@ import {
   faDumbbell,
   faScroll,
   faMoneyBill,
+  faUserTie,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const SideBarMenu = [
   { title: "Informacion", icon: faGlobe, link: "/home" },
   {
-    title: "Usuarios",
+    title: "Clientes",
     icon: faUser,
     link: "/users",
+  },
+  {
+    title: "Empleados",
+    icon: faUserTie,
+    link: "/employees",
   },
   {
     title: "Productos",

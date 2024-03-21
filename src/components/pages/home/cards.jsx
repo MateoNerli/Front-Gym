@@ -9,7 +9,9 @@ import { InfoCard } from "./infoCard";
 import { useFetch } from "../../../hooks/useFetch";
 
 export const Cards = () => {
-  const { data: data1, loading } = useFetch("http://localhost:3000/users/list");
+  const { data: data1, loading } = useFetch(
+    "http://localhost:3000/users/clientes"
+  );
   const { data: data2 } = useFetch("");
   const { data: data3 } = useFetch("");
 

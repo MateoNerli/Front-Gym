@@ -18,17 +18,17 @@ export const Acctions = ({ dni }) => {
           className="bg-yellow-200 flex items-center p-2 text-gray-800 rounded-lg mr-2"
           onClick={() => handleVerInfo()}
         >
-          <FontAwesomeIcon icon={faEye} className="mr-1" />
+          <FontAwesomeIcon icon={faEye} />
         </button>
         <Link
           to={`/user/edit/${dni}`}
           className="flex items-center p-2 bg-gray-200 text-gray-800 rounded-lg mr-2"
         >
-          <FontAwesomeIcon icon={faEdit} className="mr-1" />
+          <FontAwesomeIcon icon={faEdit} />
         </Link>
 
         <button className="flex items-center p-2 bg-red-200 text-red-800 rounded-lg">
-          <FontAwesomeIcon icon={faTrash} className="mr-1" />
+          <FontAwesomeIcon icon={faTrash} />
         </button>
       </div>
       <UserModal

@@ -11,8 +11,9 @@ export const UserCreate = () => {
   const { data: promoData, loading: promoLoading } = useFetch(
     "http://localhost:3000/promotions/list"
   );
-
+  const [selectedPlan, setSelectedPlan] = useState("");
   const [planOptions, setPlanOptions] = useState([]);
+  const [selectedPromo, setSelectedPromo] = useState("");
   const [promoOptions, setPromoOptions] = useState([]);
 
   useEffect(() => {
@@ -34,6 +35,14 @@ export const UserCreate = () => {
       setPromoOptions(options);
     }
   }, [promoData, promoLoading]);
+
+  const handlePlanChange = (newPlan) => {
+    setSelectedPlan(newPlan);
+  };
+
+  const handlePromoChange = (newPromo) => {
+    setSelectedPromo(newPromo);
+  };
 
   return (
     <div className="p-4 sm:ml-72">
@@ -118,8 +127,20 @@ export const UserCreate = () => {
             type="tel"
             required
           />
-          <Combo id="codigo_plan" label="Plan" options={planOptions} />
-          <Combo id="codigo_promo" label="Promoción" options={promoOptions} />
+          <Combo
+            id="codigo_plan"
+            label="Plan"
+            options={planOptions}
+            value={selectedPlan}
+            onChange={handlePlanChange}
+          />
+          <Combo
+            id="codigo_promo"
+            label="Promoción"
+            options={promoOptions}
+            value={selectedPromo}
+            onChange={handlePromoChange}
+          />
         </div>
         <h2 className="text-2xl font-bold text-center">
           <span className="border-b-2 border-slate-600">Ficha medica</span>
