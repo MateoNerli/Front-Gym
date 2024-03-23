@@ -20,7 +20,7 @@ export const UserModal = ({ isOpen, onClose, userDni }) => {
         return "No especificado";
     }
   }
-
+  console.log(data);
   return (
     <>
       {isOpen && (
@@ -70,33 +70,33 @@ export const UserModal = ({ isOpen, onClose, userDni }) => {
                     </h2>
                     <div className="text-left">
                       <p>
-                        <strong>Nombre:</strong> {data.persona.nombre}
+                        <strong>Nombre:</strong> {data[0].nombre}
                       </p>
                       <p>
-                        <strong>Apellido:</strong> {data.persona.apellido}
+                        <strong>Apellido:</strong> {data[0].apellido}
                       </p>
                       <p>
-                        <strong>DNI:</strong> {data.dni}
+                        <strong>DNI:</strong> {data[0].dni}
                       </p>
                       <p>
-                        <strong>Dirección:</strong> {data.persona.direccion}
+                        <strong>Dirección:</strong> {data[0].direccion}
                       </p>
                       <p>
-                        <strong>Teléfono:</strong> {data.persona.telefono}
+                        <strong>Teléfono:</strong> {data[0].telefono}
                       </p>
                       <p>
-                        <strong>Correo:</strong> {data.persona.correo}
+                        <strong>Correo:</strong> {data[0].correo}
                       </p>
                       <p>
                         <strong>Estado:</strong>{" "}
-                        {data.estado === 1 ? "Inactivo" : "Activo"}
+                        {data[0].estado === 1 ? "Inactivo" : "Activo"}
                       </p>
                       <p>
                         <strong>Fecha de nacimiento:</strong>{" "}
-                        {data.persona.fecha_nacimiento}
+                        {data[0].fecha_nacimiento.split("T")[0]}
                       </p>
                       <p>
-                        <strong>Sexo:</strong> {getSexo(data.persona.sexo)}
+                        <strong>Sexo:</strong> {getSexo(data[0].sexo)}
                       </p>
                     </div>
                   </>
@@ -105,45 +105,33 @@ export const UserModal = ({ isOpen, onClose, userDni }) => {
                   <>
                     <h2 className="text-xl font-semibold mb-4">Ficha médica</h2>
                     <div className="text-left">
-                      {data.FichaMedica.map((ficha, index) => (
-                        <div key={index}>
-                          <p>
-                            <strong>Altura:</strong> {ficha.altura} cm
-                          </p>
-                          <p>
-                            <strong>Peso:</strong> {ficha.peso} kg
-                          </p>
-                          <p>
-                            <strong>Cintura:</strong> {ficha.med_cintura} cm
-                          </p>
-                          <p>
-                            <strong>Cadera:</strong> {ficha.med_cadera} cm
-                          </p>
-                          <p>
-                            <strong>Grasa corporal:</strong>{" "}
-                            {ficha.porc_grasa_corporal}%
-                          </p>
-                          <p>
-                            <strong>Objetivo:</strong> {ficha.objetivo}
-                          </p>
-                          {ficha.OperacionesFicha.map((operacion, opIndex) => (
-                            <div key={opIndex}>
-                              <p>
-                                <strong>Operación:</strong>{" "}
-                                {operacion.operacion}
-                              </p>
-                            </div>
-                          ))}
-                          {ficha.EnfermedadFicha.map((enfermedad, opIndex) => (
-                            <div key={opIndex}>
-                              <p>
-                                <strong>Enfermedad:</strong>{" "}
-                                {enfermedad.enfermedad}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-                      ))}
+                      <p>
+                        <strong>Altura:</strong> {data[0].altura} cm
+                      </p>
+                      <p>
+                        <strong>Peso:</strong> {data[0].peso} kg
+                      </p>
+                      <p>
+                        <strong>Cintura:</strong> {data[0].med_cintura} cm
+                      </p>
+                      <p>
+                        <strong>Cadera:</strong> {data[0].med_cadera} cm
+                      </p>
+                      <p>
+                        <strong>Grasa corporal:</strong>{" "}
+                        {data[0].porc_grasa_corporal}%
+                      </p>
+                      <p>
+                        <strong>Objetivo:</strong> {data[0].objetivo}
+                      </p>
+
+                      <p>
+                        <strong>Operación:</strong> {data[0].operacion}
+                      </p>
+
+                      <p>
+                        <strong>Enfermedad:</strong> {data[0].enfermedad}
+                      </p>
                     </div>
                   </>
                 )}

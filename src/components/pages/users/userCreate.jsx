@@ -3,6 +3,7 @@ import { Combo } from "../utils/combo";
 import { useFetch } from "../../../hooks/useFetch";
 import { Checkbox } from "../utils/checkBox";
 import { TextInput } from "../utils/textInput";
+import Swal from "sweetalert2";
 
 export const UserCreate = () => {
   const { data: planData, loading: planLoading } = useFetch(
@@ -45,7 +46,7 @@ export const UserCreate = () => {
 
   const handlePromoChange = (newPromo) => {
     setSelectedPromo(newPromo);
-    handleInputChange("codigo_promo", newPromo);
+    handleInputChange("codigo_promocion", newPromo);
   };
 
   const handleGenderChange = (value) => {
@@ -60,9 +61,11 @@ export const UserCreate = () => {
   };
 
   const [formData, setFormData] = useState({
+    dni: "",
     nombre: "",
     apellido: "",
     direccion: "",
+    edad: "",
     telefono: "",
     correo: "",
     fecha_nacimiento: "",
@@ -71,7 +74,7 @@ export const UserCreate = () => {
     ocupacion: "",
     telefono_emergencia: "",
     codigo_plan: "",
-    codigo_promo: "",
+    codigo_promocion: "",
     peso: "",
     altura: "",
     med_cintura: "",
@@ -92,15 +95,27 @@ export const UserCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/users/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "http://localhost:3000/users/clientes/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       if (response.ok) {
-        console.log("User created successfully");
+        // Mostrar alerta SweetAlert
+        Swal.fire({
+          icon: "success",
+          title: "¡Usuario creado exitosamente!",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => {
+          // Redirigir a la URL deseada
+          window.location.href = "http://localhost:5173/users";
+        });
       } else {
         console.error("Failed to create user");
       }
@@ -116,6 +131,16 @@ export const UserCreate = () => {
       </h2>
       <form onSubmit={handleSubmit}>
         <div className="mt-4 grid gap-6 mb-6 md:grid-cols-2">
+          <TextInput
+            id="dni"
+            label="DNI"
+            placeholder="DNI"
+            type="number"
+            name="dni"
+            value={formData.dni}
+            onChange={(value) => handleInputChange("dni", value)}
+            required
+          />
           <TextInput
             id="nombre"
             label="Nombre"
@@ -134,6 +159,16 @@ export const UserCreate = () => {
             name="apellido"
             value={formData.apellido}
             onChange={(value) => handleInputChange("apellido", value)}
+            required
+          />
+          <TextInput
+            id="edad"
+            label="Edad"
+            placeholder="Edad"
+            type="number"
+            name="edad"
+            value={formData.edad}
+            onChange={(value) => handleInputChange("edad", value)}
             required
           />
           <TextInput
@@ -237,7 +272,7 @@ export const UserCreate = () => {
             onChange={handlePlanChange}
           />
           <Combo
-            id="codigo_promo"
+            id="codigo_promocion"
             label="Promoción"
             options={[
               { value: "", label: "Elegir promoción", disabled: true },

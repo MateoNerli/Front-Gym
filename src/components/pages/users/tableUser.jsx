@@ -36,29 +36,29 @@ export const TableUser = () => {
                 />
                 <div>
                   <span className="block text-gray-700 text-sm font-medium">
-                    {item.persona.nombre} {item.persona.apellido}
+                    {item.nombre} {item.apellido}
                   </span>
                   <span className="block text-gray-700 text-xs">
-                    {item.persona.correo}
+                    {item.correo}
                   </span>
                 </div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-center">
-                {item.persona.telefono}
+                {item.telefono}
               </td>
               <td className="pr-6 py-4 whitespace-nowrap text-center">
                 <span
                   className={`px-3 py-2 rounded-full font-semibold text-xs ${
-                    item.persona.estado === 1
+                    item.estado === 1
                       ? "text-green-600 bg-green-50"
                       : "text-red-600 bg-red-50"
                   }`}
                 >
-                  {item.persona.estado === 1 ? "Active" : "Inactive"}
+                  {item.estado === 1 ? "Active" : "Inactive"}
                 </span>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-center">
-                <Acctions dni={item.persona.dni} />
+                <Acctions dni={item.dni} />
               </td>
             </tr>
           ))}

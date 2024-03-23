@@ -3,6 +3,7 @@ import { Checkbox } from "../utils/checkBox";
 import { TextInput } from "../utils/textInput";
 import { useParams } from "react-router-dom";
 import { useFetch } from "../../../hooks/useFetch";
+import { useEffect, useState } from "react";
 
 export const UserEdit = () => {
   const { dni } = useParams();
@@ -15,6 +16,28 @@ export const UserEdit = () => {
   const { data: promoData, loading: promoLoading } = useFetch(
     "http://localhost:3000/promotions/list"
   );
+  const [planOptions, setPlanOptions] = useState([]);
+  const [promoOptions, setPromoOptions] = useState([]);
+
+  useEffect(() => {
+    if (!planLoading && planData) {
+      const options = planData.data.map((plan) => ({
+        value: plan.codigo,
+        label: plan.nombre,
+      }));
+      setPlanOptions(options);
+    }
+  }, [planData, planLoading]);
+
+  useEffect(() => {
+    if (!promoLoading && promoData) {
+      const options = promoData.data.map((promo) => ({
+        value: promo.codigo,
+        label: promo.nombre,
+      }));
+      setPromoOptions(options);
+    }
+  }, [promoData, promoLoading]);
 
   if (loading || planLoading || promoLoading) {
     return (
@@ -29,7 +52,7 @@ export const UserEdit = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-  // console.log(data);
+  console.log(data[0]);
   return (
     <div className="p-4 sm:ml-72">
       <h2 className="text-2xl font-bold text-center">
@@ -38,10 +61,19 @@ export const UserEdit = () => {
       <form>
         <div className="mt-4 grid gap-6 mb-6 md:grid-cols-2">
           <TextInput
+            id="dni"
+            label="DNI"
+            placeholder="12345678"
+            value={data[0].dni}
+            type="number"
+            required
+          />
+
+          <TextInput
             id="nombre"
             label="Nombre"
             placeholder="John"
-            value={data.persona.nombre}
+            value={data[0].nombre}
             required
           />
 
@@ -49,15 +81,25 @@ export const UserEdit = () => {
             id="apellido"
             label="Apellido"
             placeholder="Doe"
-            value={data.persona.apellido}
+            value={data[0].apellido}
             type="text"
             required
           />
+
+          <TextInput
+            id="edad"
+            label="Edad"
+            placeholder="Edad"
+            value={data[0].edad}
+            type="number"
+            required
+          />
+
           <TextInput
             id="direccion"
             label="Dirección"
             placeholder="Mitre 1234"
-            value={data.persona.direccion}
+            value={data[0].direccion}
             type="text"
             required
           />
@@ -65,7 +107,7 @@ export const UserEdit = () => {
             id="telefono"
             label="Teléfono"
             placeholder="3364-445-678"
-            value={data.persona.telefono}
+            value={data[0].telefono}
             type="tel"
             required
           />
@@ -73,7 +115,7 @@ export const UserEdit = () => {
             id="correo"
             label="Correo"
             placeholder="johnDoe@gmail.com"
-            value={data.persona.correo}
+            value={data[0].correo}
             type="email"
             required
           />
@@ -81,7 +123,7 @@ export const UserEdit = () => {
             id="fecha_nacimiento"
             label="Fecha de nacimiento"
             placeholder="1990-12-31"
-            value={data.persona.fecha_nacimiento}
+            value={data[0].fecha_nacimiento}
             type="date"
             required
           />
@@ -93,16 +135,16 @@ export const UserEdit = () => {
               { value: "M", label: "Masculino" },
               { value: "F", label: "Femenino" },
             ]}
-            value={data.persona.sexo}
+            value={data[0].sexo}
             required
-            onChange={(value) => data.persona.sexo(value)}
+            onChange={(value) => data[0].sexo(value)}
           />
 
           <Checkbox
             id="estado"
             label="Estado"
             required
-            initialValue={data.persona.estado}
+            initialValue={data[0].estado}
           />
         </div>
 
@@ -117,7 +159,7 @@ export const UserEdit = () => {
             id="ocupacion"
             label="Ocupación"
             placeholder="Ocupación"
-            value={data.ocupacion}
+            value={data[0].ocupacion}
             type="text"
             required
           />
@@ -125,109 +167,101 @@ export const UserEdit = () => {
             id="telefono_emergencia"
             label="Teléfono de emergencia"
             placeholder="Teléfono de emergencia"
-            value={data.telefono_emergencia}
+            value={data[0].telefono_emergencia}
             type="tel"
             required
           />
           <Combo
-            id="plan"
+            id="codigo_plan"
             label="Plan"
-            options={planData.data.map((plan) => ({
-              value: plan.codigo,
-              label: plan.nombre,
-            }))}
-            value={data.codigo_plan}
+            options={[
+              { value: "", label: "Elegir plan", disabled: true },
+              ...planOptions,
+            ]}
+            value={data[0].codigo_plan}
             required
           />
-
           <Combo
-            id="promocion"
+            id="codigo_promocion"
             label="Promoción"
-            options={promoData.data.map((promo) => ({
-              value: promo.codigo,
-              label: promo.nombre,
-            }))}
-            value={data.codigo_promocion}
+            options={[
+              { value: "", label: "Elegir promoción", disabled: true },
+              ...promoOptions,
+            ]}
+            value={data[0].codigo_promocion}
             required
           />
         </div>
         <h2 className="text-2xl font-bold text-center">
           <span className="border-b-2 border-slate-600">Ficha medica</span>
         </h2>
-        {data.FichaMedica.map((ficha, index) => (
-          <div key={index} className="mt-4 grid gap-6 md:grid-cols-2">
-            <TextInput
-              id={`peso_${index}`}
-              label="Peso"
-              placeholder="Peso"
-              value={ficha.peso}
-              type="number"
-              required
-            />
-            <TextInput
-              id={`altura_${index}`}
-              label="Altura"
-              placeholder="Altura"
-              value={ficha.altura}
-              type="number"
-              required
-            />
-            <TextInput
-              id={`med_cintura_${index}`}
-              label="Medida de cintura"
-              placeholder="Medida de cintura"
-              value={ficha.med_cintura}
-              type="number"
-              required
-            />
-            <TextInput
-              id={`med_cadera_${index}`}
-              label="Medida de cadera"
-              placeholder="Medida de cadera"
-              value={ficha.med_cadera}
-              type="number"
-              required
-            />
-            <TextInput
-              id={`porcentaje_grasa_${index}`}
-              label="Porcentaje de grasa"
-              placeholder="Porcentaje de grasa"
-              value={ficha.porc_grasa_corporal}
-              type="number"
-              required
-            />
-            <TextInput
-              id={`objetivo_${index}`}
-              label="Objetivo"
-              placeholder="Objetivo"
-              value={ficha.objetivo}
-              type="text"
-              required
-            />
-            {ficha.OperacionesFicha.map((operacion, opIndex) => (
-              <TextInput
-                key={`operaciones_${index}_${opIndex}`}
-                id={`operaciones_${index}_${opIndex}`}
-                label="Operaciones"
-                placeholder="Operaciones"
-                value={operacion.operacion}
-                type="text"
-                required
-              />
-            ))}
-            {ficha.EnfermedadFicha.map((enfermedad, enIndex) => (
-              <TextInput
-                key={`enfermedades_${index}_${enIndex}`}
-                id={`enfermedades_${index}_${enIndex}`}
-                label="Enfermedades"
-                placeholder="Enfermedades"
-                value={enfermedad.enfermedad}
-                type="text"
-                required
-              />
-            ))}
-          </div>
-        ))}
+
+        <div className="mt-4 grid gap-6 md:grid-cols-2">
+          <TextInput
+            id="peso"
+            label="Peso"
+            placeholder="Peso"
+            value={data[0].peso}
+            type="number"
+            required
+          />
+          <TextInput
+            id="altura"
+            label="Altura"
+            placeholder="Altura"
+            value={data[0].altura}
+            type="number"
+            required
+          />
+          <TextInput
+            id="med_cintura"
+            label="Medida de cintura"
+            placeholder="Medida de cintura"
+            value={data[0].med_cintura}
+            type="number"
+            required
+          />
+          <TextInput
+            id="med_cadera"
+            label="Medida de cadera"
+            placeholder="Medida de cadera"
+            value={data[0].med_cadera}
+            type="number"
+            required
+          />
+          <TextInput
+            id="porc_grasa_corporal"
+            label="Porcentaje de grasa"
+            placeholder="Porcentaje de grasa"
+            value={data[0].porc_grasa_corporal}
+            type="number"
+            required
+          />
+          <TextInput
+            id="objetivo"
+            label="Objetivo"
+            placeholder="Objetivo"
+            value={data[0].objetivo}
+            type="text"
+            required
+          />
+          <TextInput
+            id="operacion"
+            label="Operaciones"
+            placeholder="Operaciones"
+            value={data[0].operacion}
+            type="text"
+            required
+          />
+          <TextInput
+            id="enfermedad"
+            label="Enfermedades"
+            placeholder="Enfermedades"
+            value={data[0].enfermedad}
+            type="text"
+            required
+          />
+        </div>
 
         <div className="grid gap-6 mb-6">
           <button
