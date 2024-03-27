@@ -20,7 +20,7 @@ export const UserModal = ({ isOpen, onClose, userDni }) => {
         return "No especificado";
     }
   }
-  console.log(data);
+  // console.log(data);
   return (
     <>
       {isOpen && (
@@ -70,13 +70,16 @@ export const UserModal = ({ isOpen, onClose, userDni }) => {
                     </h2>
                     <div className="text-left">
                       <p>
+                        <strong>DNI:</strong> {data[0].dni}
+                      </p>
+                      <p>
                         <strong>Nombre:</strong> {data[0].nombre}
                       </p>
                       <p>
                         <strong>Apellido:</strong> {data[0].apellido}
                       </p>
                       <p>
-                        <strong>DNI:</strong> {data[0].dni}
+                        <strong>Edad:</strong> {data[0].edad}
                       </p>
                       <p>
                         <strong>Dirección:</strong> {data[0].direccion}
@@ -89,7 +92,7 @@ export const UserModal = ({ isOpen, onClose, userDni }) => {
                       </p>
                       <p>
                         <strong>Estado:</strong>{" "}
-                        {data[0].estado === 1 ? "Inactivo" : "Activo"}
+                        {data[0].estado === 0 ? "Inactivo" : "Activo"}
                       </p>
                       <p>
                         <strong>Fecha de nacimiento:</strong>{" "}

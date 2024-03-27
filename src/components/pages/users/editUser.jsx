@@ -135,8 +135,8 @@ export const UserEdit = () => {
         throw new Error("Error al actualizar el cliente");
       }
 
-      const responseData = await response.json();
-      console.log(responseData);
+      // const responseData = await response.json();
+      // console.log(responseData);
 
       Swal.fire({
         icon: "success",
@@ -255,7 +255,6 @@ export const UserEdit = () => {
           <Checkbox
             id="estado"
             label="Estado"
-            required
             initialValue={form.estado === 1}
             onChange={handleEstadoChange}
           />
