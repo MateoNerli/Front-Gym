@@ -61,8 +61,8 @@ export const UserCreate = () => {
     med_cadera: "",
     porcentaje_grasa: "",
     objetivo: "",
-    operaciones: "",
-    enfermedades: "",
+    operacion: "",
+    enfermedad: "",
   });
 
   const handleInputChange = (fieldName, value) => {
@@ -115,15 +115,14 @@ export const UserCreate = () => {
       "med_cadera",
       "porcentaje_grasa",
       "objetivo",
-      "operaciones",
-      "enfermedades",
+      "operacion",
+      "enfermedad",
     ];
 
     let isValid = true;
 
     requiredFields.forEach((fieldName) => {
       const element = document.getElementById(fieldName);
-      const errorMessageElement = element.nextElementSibling;
 
       if (!formData[fieldName].trim()) {
         isValid = false;
@@ -134,9 +133,6 @@ export const UserCreate = () => {
         if (element.classList.contains("border-red-500")) {
           element.classList.remove("border-red-500");
         }
-        if (errorMessageElement) {
-          errorMessageElement.remove();
-        }
       }
 
       element.addEventListener("blur", () => {
@@ -145,9 +141,6 @@ export const UserCreate = () => {
           element.classList.contains("border-red-500")
         ) {
           element.classList.remove("border-red-500");
-          if (errorMessageElement) {
-            errorMessageElement.remove();
-          }
         }
       });
     });
@@ -201,10 +194,9 @@ export const UserCreate = () => {
         console.error("Failed to create user");
       }
     } catch (error) {
-      console.error("Failed to create user:", error);
+      console.error(error.message);
     }
   };
-
   return (
     <div className="p-4 sm:ml-72">
       <h2 className="text-2xl font-bold text-center">

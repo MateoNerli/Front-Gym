@@ -44,8 +44,8 @@ export const MedicalInfoForm = ({ formData, handleInputChange }) => {
           label="Porcentaje de grasa"
           placeholder="Porcentaje de grasa"
           type="number"
-          value={formData.porcentaje_grasa}
-          onChange={(value) => handleInputChange("porcentaje_grasa", value)}
+          value={formData.porc_grasa_corporal}
+          onChange={(value) => handleInputChange("porc_grasa_corporal", value)}
         />
         <TextInput
           id="objetivo"
@@ -56,20 +56,20 @@ export const MedicalInfoForm = ({ formData, handleInputChange }) => {
           onChange={(value) => handleInputChange("objetivo", value)}
         />
         <TextInput
-          id="operaciones"
-          label="Operaciones"
-          placeholder="Operaciones"
+          id="operacion"
+          label="Operacion"
+          placeholder="Operacion"
           type="text"
-          value={formData.operaciones}
-          onChange={(value) => handleInputChange("operaciones", value)}
+          value={formData.operacion}
+          onChange={(value) => handleInputChange("operacion", value)}
         />
         <TextInput
-          id="enfermedades"
-          label="Enfermedades"
-          placeholder="Enfermedades"
+          id="enfermedad"
+          label="Enfermedad"
+          placeholder="Enfermedad"
           type="text"
-          value={formData.enfermedades}
-          onChange={(value) => handleInputChange("enfermedades", value)}
+          value={formData.enfermedad}
+          onChange={(value) => handleInputChange("enfermedad", value)}
         />
       </div>
     </>

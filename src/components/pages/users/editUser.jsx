@@ -1,10 +1,10 @@
-import { Combo } from "../utils/combo";
-import { Checkbox } from "../utils/checkBox";
-import { TextInput } from "../utils/textInput";
 import { useParams } from "react-router-dom";
 import { useFetch } from "../../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { PersonalInfoForm } from "./PersonalInfoForm";
+import { ClientInfoForm } from "./ClientInfoForm";
+import { MedicalInfoForm } from "./MedicalInfoForm";
 
 export const UserEdit = () => {
   const { dni } = useParams();
@@ -110,15 +110,16 @@ export const UserEdit = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
   const handleEstadoChange = (newValue) => {
     setForm((prevForm) => ({
       ...prevForm,
       estado: newValue ? 1 : 0,
     }));
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     try {
       const response = await fetch(
         `http://localhost:3000/users/clientes/${dni}`,
@@ -130,14 +131,9 @@ export const UserEdit = () => {
           body: JSON.stringify(form),
         }
       );
-
       if (!response.ok) {
         throw new Error("Error al actualizar el cliente");
       }
-
-      // const responseData = await response.json();
-      // console.log(responseData);
-
       Swal.fire({
         icon: "success",
         title: "¡Usuario actualizado exitosamente!",
@@ -152,12 +148,10 @@ export const UserEdit = () => {
   };
 
   const handleInputChange = (fieldName, value) => {
-    const newValue = fieldName === "edad" ? parseInt(value) : value;
-
-    setForm({
-      ...form,
-      [fieldName]: newValue,
-    });
+    setForm((prevForm) => ({
+      ...prevForm,
+      [fieldName]: value,
+    }));
   };
 
   return (
@@ -166,231 +160,32 @@ export const UserEdit = () => {
         <span className="border-b-2 border-slate-600">Editar cliente</span>
       </h2>
       <form onSubmit={handleSubmit}>
-        <div className="mt-4 grid gap-6 mb-6 md:grid-cols-2">
-          <TextInput
-            id="dni"
-            label="DNI"
-            placeholder="12345678"
-            value={form.dni}
-            onChange={(value) => handleInputChange("dni", value)}
-            type="number"
-            required
-          />
+        <PersonalInfoForm
+          formData={form}
+          handleInputChange={handleInputChange}
+          selectedGender={form.sexo}
+          handleGenderChange={(value) => handleInputChange("sexo", value)}
+          selectedState={form.estado}
+          handleStateChange={handleEstadoChange}
+        />
 
-          <TextInput
-            id="nombre"
-            label="Nombre"
-            placeholder="John"
-            value={form.nombre}
-            type="text"
-            onChange={(value) => handleInputChange("nombre", value)}
-            required
-          />
+        <ClientInfoForm
+          formData={form}
+          handleInputChange={handleInputChange}
+          planOptions={planOptions}
+          selectedPlan={form.codigo_plan}
+          handlePlanChange={(value) => handleInputChange("codigo_plan", value)}
+          promoOptions={promoOptions}
+          selectedPromo={form.codigo_promocion}
+          handlePromoChange={(value) =>
+            handleInputChange("codigo_promocion", value)
+          }
+        />
 
-          <TextInput
-            id="apellido"
-            label="Apellido"
-            placeholder="Doe"
-            value={form.apellido}
-            type="text"
-            onChange={(value) => handleInputChange("apellido", value)}
-            required
-          />
-          <TextInput
-            id="edad"
-            label="Edad"
-            placeholder="25"
-            value={form.edad}
-            type="number"
-            onChange={(value) => handleInputChange("edad", value)}
-            required
-          />
-          <TextInput
-            id="direccion"
-            label="Dirección"
-            placeholder="Calle 123"
-            value={form.direccion}
-            type="text"
-            onChange={(value) => handleInputChange("direccion", value)}
-            required
-          />
-          <TextInput
-            id="telefono"
-            label="Teléfono"
-            placeholder="123456789"
-            value={form.telefono}
-            type="number"
-            onChange={(value) => handleInputChange("telefono", value)}
-            required
-          />
-          <TextInput
-            id="correo"
-            label="Correo"
-            placeholder="jonhDoe@gmail.com"
-            value={form.correo}
-            type="email"
-            onChange={(value) => handleInputChange("correo", value)}
-            required
-          />
-          <TextInput
-            id="fecha_nacimiento"
-            label="Fecha de nacimiento"
-            value={form.fecha_nacimiento}
-            type="date"
-            onChange={(value) => handleInputChange("fecha_nacimiento", value)}
-            required
-          />
-          <Combo
-            id="sexo"
-            label="Sexo"
-            value={form.sexo}
-            options={[
-              { value: "M", label: "Masculino" },
-              { value: "F", label: "Femenino" },
-            ]}
-            onChange={(value) => handleInputChange("sexo", value)}
-            required
-          />
-          <Checkbox
-            id="estado"
-            label="Estado"
-            initialValue={form.estado === 1}
-            onChange={handleEstadoChange}
-          />
-        </div>
-
-        <h2 className="text-2xl font-bold text-center">
-          <span className="border-b-2 border-slate-600">
-            Informacion del cliente
-          </span>
-        </h2>
-        <div className="mt-4 grid gap-6 mb-6 md:grid-cols-2">
-          <TextInput
-            id="ocupacion"
-            label="Ocupación"
-            placeholder="Ocupación"
-            type="text"
-            name="ocupacion"
-            value={form.ocupacion}
-            onChange={(value) => handleInputChange("ocupacion", value)}
-            required
-          />
-          <TextInput
-            id="telefono_emergencia"
-            label="Teléfono de emergencia"
-            placeholder="123456789"
-            type="number"
-            name="telefono_emergencia"
-            value={form.telefono_emergencia}
-            onChange={(value) =>
-              handleInputChange("telefono_emergencia", value)
-            }
-            required
-          />
-          <Combo
-            id="codigo_plan"
-            label="Plan"
-            value={form.codigo_plan}
-            options={planOptions}
-            onChange={(value) => handleInputChange("codigo_plan", value)}
-            required
-          />
-          <Combo
-            id="codigo_promocion"
-            label="Promoción"
-            value={form.codigo_promocion}
-            options={promoOptions}
-            onChange={(value) => handleInputChange("codigo_promocion", value)}
-            required
-          />
-        </div>
-        <h2 className="text-2xl font-bold text-center">
-          <span className="border-b-2 border-slate-600">Ficha medica</span>
-        </h2>
-        <div className="mt-4 grid gap-6 mb-6 md:grid-cols-2">
-          <TextInput
-            id="peso"
-            label="Peso"
-            placeholder="Peso"
-            type="number"
-            name="peso"
-            value={form.peso}
-            onChange={(value) => handleInputChange("peso", value)}
-            required
-          />
-          <TextInput
-            id="altura"
-            label="Altura"
-            placeholder="Altura"
-            type="number"
-            name="altura"
-            value={form.altura}
-            onChange={(value) => handleInputChange("altura", value)}
-            required
-          />
-          <TextInput
-            id="med_cintura"
-            label="Medida de cintura"
-            placeholder="Medida de cintura"
-            type="number"
-            name="med_cintura"
-            value={form.med_cintura}
-            onChange={(value) => handleInputChange("med_cintura", value)}
-            required
-          />
-          <TextInput
-            id="med_cadera"
-            label="Medida de cadera"
-            placeholder="Medida de cadera"
-            type="number"
-            name="med_cadera"
-            value={form.med_cadera}
-            onChange={(value) => handleInputChange("med_cadera", value)}
-            required
-          />
-          <TextInput
-            id="porc_grasa_corporal"
-            label="Porcentaje de grasa corporal"
-            placeholder="Porcentaje de grasa corporal"
-            type="number"
-            name="porc_grasa_corporal"
-            value={form.porc_grasa_corporal}
-            onChange={(value) =>
-              handleInputChange("porc_grasa_corporal", value)
-            }
-            required
-          />
-          <TextInput
-            id="objetivo"
-            label="Objetivo"
-            placeholder="Objetivo"
-            type="text"
-            name="objetivo"
-            value={form.objetivo}
-            onChange={(value) => handleInputChange("objetivo", value)}
-            required
-          />
-          <TextInput
-            id="operacion"
-            label="Operación"
-            placeholder="Operación"
-            type="text"
-            name="operacion"
-            value={form.operacion}
-            onChange={(value) => handleInputChange("operacion", value)}
-            required
-          />
-          <TextInput
-            id="enfermedad"
-            label="Enfermedad"
-            placeholder="Enfermedad"
-            type="text"
-            name="enfermedad"
-            value={form.enfermedad}
-            onChange={(value) => handleInputChange("enfermedad", value)}
-            required
-          />
-        </div>
+        <MedicalInfoForm
+          formData={form}
+          handleInputChange={handleInputChange}
+        />
 
         <div className="grid gap-6 mb-6">
           <button

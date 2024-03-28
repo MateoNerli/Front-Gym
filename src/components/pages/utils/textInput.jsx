@@ -18,7 +18,8 @@ export const TextInput = ({
     setTouched(true);
   };
 
-  const shouldShowError = touched && !value.trim();
+  const shouldShowError =
+    touched && (typeof value === "string" ? !value.trim() : false);
 
   return (
     <div className="">
