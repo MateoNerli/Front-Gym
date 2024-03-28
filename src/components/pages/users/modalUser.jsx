@@ -1,7 +1,11 @@
+// UserModal.js
 import { useState } from "react";
 import { useFetch } from "../../../hooks/useFetch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { ModalMedicalInfo } from "./ModalMedicalInfo";
+import { ModalUserInfo } from "./ModalUserInfo";
+import { ModalPlanInfo } from "./ModalPlanInfo";
 
 export const UserModal = ({ isOpen, onClose, userDni }) => {
   const { data, loading, error } = useFetch(
@@ -10,17 +14,6 @@ export const UserModal = ({ isOpen, onClose, userDni }) => {
 
   const [currentTab, setCurrentTab] = useState("client");
 
-  function getSexo(sexo) {
-    switch (sexo) {
-      case "M":
-        return "Masculino";
-      case "F":
-        return "Femenino";
-      default:
-        return "No especificado";
-    }
-  }
-  // console.log(data);
   return (
     <>
       {isOpen && (
@@ -46,6 +39,16 @@ export const UserModal = ({ isOpen, onClose, userDni }) => {
               </button>
               <button
                 className={`px-4 py-2  ${
+                  currentTab === "plan"
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-200"
+                }`}
+                onClick={() => setCurrentTab("plan")}
+              >
+                Plan
+              </button>
+              <button
+                className={`px-4 py-2  ${
                   currentTab === "medical"
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200"
@@ -63,81 +66,11 @@ export const UserModal = ({ isOpen, onClose, userDni }) => {
               <p>Error al cargar los datos</p>
             ) : (
               <div>
-                {currentTab === "client" && (
-                  <>
-                    <h2 className="text-xl font-semibold mb-4">
-                      Información del cliente
-                    </h2>
-                    <div className="text-left">
-                      <p>
-                        <strong>DNI:</strong> {data[0].dni}
-                      </p>
-                      <p>
-                        <strong>Nombre:</strong> {data[0].nombre}
-                      </p>
-                      <p>
-                        <strong>Apellido:</strong> {data[0].apellido}
-                      </p>
-                      <p>
-                        <strong>Edad:</strong> {data[0].edad}
-                      </p>
-                      <p>
-                        <strong>Dirección:</strong> {data[0].direccion}
-                      </p>
-                      <p>
-                        <strong>Teléfono:</strong> {data[0].telefono}
-                      </p>
-                      <p>
-                        <strong>Correo:</strong> {data[0].correo}
-                      </p>
-                      <p>
-                        <strong>Estado:</strong>{" "}
-                        {data[0].estado === 0 ? "Inactivo" : "Activo"}
-                      </p>
-                      <p>
-                        <strong>Fecha de nacimiento:</strong>{" "}
-                        {data[0].fecha_nacimiento.split("T")[0]}
-                      </p>
-                      <p>
-                        <strong>Sexo:</strong> {getSexo(data[0].sexo)}
-                      </p>
-                    </div>
-                  </>
-                )}
+                {currentTab === "client" && <ModalUserInfo data={data[0]} />}
                 {currentTab === "medical" && (
-                  <>
-                    <h2 className="text-xl font-semibold mb-4">Ficha médica</h2>
-                    <div className="text-left">
-                      <p>
-                        <strong>Altura:</strong> {data[0].altura} cm
-                      </p>
-                      <p>
-                        <strong>Peso:</strong> {data[0].peso} kg
-                      </p>
-                      <p>
-                        <strong>Cintura:</strong> {data[0].med_cintura} cm
-                      </p>
-                      <p>
-                        <strong>Cadera:</strong> {data[0].med_cadera} cm
-                      </p>
-                      <p>
-                        <strong>Grasa corporal:</strong>{" "}
-                        {data[0].porc_grasa_corporal}%
-                      </p>
-                      <p>
-                        <strong>Objetivo:</strong> {data[0].objetivo}
-                      </p>
-
-                      <p>
-                        <strong>Operación:</strong> {data[0].operacion}
-                      </p>
-
-                      <p>
-                        <strong>Enfermedad:</strong> {data[0].enfermedad}
-                      </p>
-                    </div>
-                  </>
+                  <ModalMedicalInfo data={data[0]} />
                 )}
+                {currentTab === "plan" && <ModalPlanInfo data={data[0]} />}
               </div>
             )}
           </div>

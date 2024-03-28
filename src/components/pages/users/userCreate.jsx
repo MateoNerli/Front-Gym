@@ -24,7 +24,7 @@ export const UserCreate = () => {
     if (!planLoading && planData) {
       const options = planData.data.map((plan) => ({
         value: plan.codigo,
-        label: plan.nombre,
+        label: plan.nombre_plan,
       }));
       setPlanOptions(options);
     }
@@ -34,7 +34,7 @@ export const UserCreate = () => {
     if (!promoLoading && promoData) {
       const options = promoData.data.map((promo) => ({
         value: promo.codigo,
-        label: promo.nombre,
+        label: promo.nombre_promo,
       }));
       setPromoOptions(options);
     }
