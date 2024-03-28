@@ -92,8 +92,82 @@ export const UserCreate = () => {
     });
   };
 
+  const validateForm = () => {
+    const requiredFields = [
+      "dni",
+      "nombre",
+      "apellido",
+      "direccion",
+      "edad",
+      "telefono",
+      "correo",
+      "fecha_nacimiento",
+      "sexo",
+      //"estado",
+      "ocupacion",
+      "telefono_emergencia",
+      "codigo_plan",
+      "codigo_promocion",
+      "peso",
+      "altura",
+      "med_cintura",
+      "med_cadera",
+      "porcentaje_grasa",
+      "objetivo",
+      "operaciones",
+      "enfermedades",
+    ];
+
+    let isValid = true;
+
+    requiredFields.forEach((fieldName) => {
+      const element = document.getElementById(fieldName);
+      const errorMessageElement = element.nextElementSibling;
+
+      if (!formData[fieldName].trim()) {
+        isValid = false;
+        if (!element.classList.contains("border-red-500")) {
+          element.classList.add("border-red-500");
+        }
+      } else {
+        if (element.classList.contains("border-red-500")) {
+          element.classList.remove("border-red-500");
+        }
+        if (errorMessageElement) {
+          errorMessageElement.remove();
+        }
+      }
+
+      element.addEventListener("blur", () => {
+        if (
+          formData[fieldName].trim() &&
+          element.classList.contains("border-red-500")
+        ) {
+          element.classList.remove("border-red-500");
+          if (errorMessageElement) {
+            errorMessageElement.remove();
+          }
+        }
+      });
+    });
+
+    if (!isValid) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Por favor, completa todos los campos.",
+      });
+    }
+
+    return isValid;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
     try {
       const response = await fetch(
         "http://localhost:3000/users/clientes/create",
@@ -106,15 +180,19 @@ export const UserCreate = () => {
         }
       );
       if (response.ok) {
-        // Mostrar alerta SweetAlert
         Swal.fire({
           icon: "success",
           title: "¡Usuario creado exitosamente!",
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
-          // Redirigir a la URL deseada
           window.location.href = "http://localhost:5173/users";
+        });
+      } else if (response.status === 409) {
+        Swal.fire({
+          icon: "error",
+          title: "¡El DNI ya está registrado!",
+          text: "Por favor, ingresa un DNI diferente.",
         });
       } else {
         console.error("Failed to create user");
@@ -139,8 +217,10 @@ export const UserCreate = () => {
             name="dni"
             value={formData.dni}
             onChange={(value) => handleInputChange("dni", value)}
-            required
+            //no se puede editar
+            disabled
           />
+
           <TextInput
             id="nombre"
             label="Nombre"
@@ -149,7 +229,6 @@ export const UserCreate = () => {
             name="nombre"
             value={formData.nombre}
             onChange={(value) => handleInputChange("nombre", value)}
-            required
           />
           <TextInput
             id="apellido"
@@ -159,7 +238,6 @@ export const UserCreate = () => {
             name="apellido"
             value={formData.apellido}
             onChange={(value) => handleInputChange("apellido", value)}
-            required
           />
           <TextInput
             id="edad"
@@ -169,7 +247,6 @@ export const UserCreate = () => {
             name="edad"
             value={formData.edad}
             onChange={(value) => handleInputChange("edad", value)}
-            required
           />
           <TextInput
             id="direccion"
@@ -179,7 +256,6 @@ export const UserCreate = () => {
             name="direccion"
             value={formData.direccion}
             onChange={(value) => handleInputChange("direccion", value)}
-            required
           />
           <TextInput
             id="telefono"
@@ -189,7 +265,6 @@ export const UserCreate = () => {
             name="telefono"
             value={formData.telefono}
             onChange={(value) => handleInputChange("telefono", value)}
-            required
           />
           <TextInput
             id="correo"
@@ -199,7 +274,6 @@ export const UserCreate = () => {
             name="correo"
             value={formData.correo}
             onChange={(value) => handleInputChange("correo", value)}
-            required
           />
           <TextInput
             id="fecha_nacimiento"
@@ -209,7 +283,6 @@ export const UserCreate = () => {
             name="fecha_nacimiento"
             value={formData.fecha_nacimiento}
             onChange={(value) => handleInputChange("fecha_nacimiento", value)}
-            required
           />
 
           <Combo
@@ -247,7 +320,6 @@ export const UserCreate = () => {
             name="ocupacion"
             value={formData.ocupacion}
             onChange={(value) => handleInputChange("ocupacion", value)}
-            required
           />
           <TextInput
             id="telefono_emergencia"
@@ -259,7 +331,6 @@ export const UserCreate = () => {
             onChange={(value) =>
               handleInputChange("telefono_emergencia", value)
             }
-            required
           />
           <Combo
             id="codigo_plan"
@@ -294,7 +365,6 @@ export const UserCreate = () => {
             name="peso"
             value={formData.peso}
             onChange={(value) => handleInputChange("peso", value)}
-            required
           />
           <TextInput
             id="altura"
@@ -304,7 +374,6 @@ export const UserCreate = () => {
             name="altura"
             value={formData.altura}
             onChange={(value) => handleInputChange("altura", value)}
-            required
           />
           <TextInput
             id="med_cintura"
@@ -314,7 +383,6 @@ export const UserCreate = () => {
             name="med_cintura"
             value={formData.med_cintura}
             onChange={(value) => handleInputChange("med_cintura", value)}
-            required
           />
           <TextInput
             id="med_cadera"
@@ -324,7 +392,6 @@ export const UserCreate = () => {
             name="med_cadera"
             value={formData.med_cadera}
             onChange={(value) => handleInputChange("med_cadera", value)}
-            required
           />
           <TextInput
             id="porcentaje_grasa"
@@ -334,7 +401,6 @@ export const UserCreate = () => {
             name="porcentaje_grasa"
             value={formData.porcentaje_grasa}
             onChange={(value) => handleInputChange("porcentaje_grasa", value)}
-            required
           />
           <TextInput
             id="objetivo"
@@ -344,18 +410,16 @@ export const UserCreate = () => {
             name="objetivo"
             value={formData.objetivo}
             onChange={(value) => handleInputChange("objetivo", value)}
-            required
           />
 
           <TextInput
-            id="opreciones"
+            id="operaciones"
             label="Operaciones"
             placeholder="Operaciones"
             type="text"
             name="operaciones"
             value={formData.operaciones}
             onChange={(value) => handleInputChange("operaciones", value)}
-            required
           />
           <TextInput
             id="enfermedades"
@@ -365,7 +429,6 @@ export const UserCreate = () => {
             name="enfermedades"
             value={formData.enfermedades}
             onChange={(value) => handleInputChange("enfermedades", value)}
-            required
           />
         </div>
 

@@ -174,7 +174,6 @@ export const UserEdit = () => {
             value={form.dni}
             onChange={(value) => handleInputChange("dni", value)}
             type="number"
-            disabled
             required
           />
 

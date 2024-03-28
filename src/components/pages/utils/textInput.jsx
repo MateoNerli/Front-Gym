@@ -1,16 +1,24 @@
+import { useState } from "react";
+
 export const TextInput = ({
   id,
   label,
   placeholder,
   type,
-  required,
   value,
-  onChange, // Agrega onChange como una prop
+  onChange,
 }) => {
-  // Define la función handleChange para manejar los cambios en el input
+  const [touched, setTouched] = useState(false);
+
   const handleChange = (event) => {
-    onChange(event.target.value); // Llama a la función onChange con el nuevo valor del input
+    onChange(event.target.value);
   };
+
+  const handleBlur = () => {
+    setTouched(true);
+  };
+
+  const shouldShowError = touched && !value.trim();
 
   return (
     <div className="">
@@ -23,12 +31,19 @@ export const TextInput = ({
       <input
         type={type}
         id={id}
-        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        className={`bg-gray-50 border ${
+          shouldShowError ? "border-red-500" : "border-gray-300"
+        } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
         placeholder={placeholder}
         value={value}
-        onChange={handleChange} // Asigna handleChange al evento onChange del input
-        required={required}
+        onChange={handleChange}
+        onBlur={handleBlur}
       />
+      {shouldShowError && (
+        <p className="text-red-500 text-xs mt-1">
+          Este campo no puede estar vacío
+        </p>
+      )}
     </div>
   );
 };
